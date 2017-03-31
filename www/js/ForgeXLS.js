@@ -78,10 +78,11 @@ var ForgeXLS = {
 
       var wb = new Workbook();
       jQuery.each(tables, function (name, table) {
-
-        var ws = ForgeXLS.sheetFromTable(table);
-        wb.SheetNames.push(name);
-        wb.Sheets[name] = ws;
+        if (name.indexOf('<')==-1) { // skip tables starting with <
+          var ws = ForgeXLS.sheetFromTable(table);
+          wb.SheetNames.push(name);
+          wb.Sheets[name] = ws;
+        }
       });
 
       var wbout = XLSX.write(wb, {bookType: 'xlsx', bookSST: true, type: 'binary'});
