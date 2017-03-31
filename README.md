@@ -11,7 +11,7 @@ This sample uses Model Derivative API endpoints to read a Revit project properti
 
 ## Demonstration
 
-Run it live at [this page](https://autodesk-forge.github.io/viewer-javascript-extract.spreadsheet/)
+Run it live at [this page](https://viewerxls.herokuapp.com)
 
 # Usage
 

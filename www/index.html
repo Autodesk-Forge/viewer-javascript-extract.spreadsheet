@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Export to Excel</title>
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- jQuery for DOM manipualtion -->
+  <script src="js/libraries/jquery.min.js"></script>
+
+  <!-- Notification ballons -->
+  <script src="js/libraries/notify.min.js"></script>
+
+  <!-- Forge Viewer related libraries -->
+  <link rel="stylesheet" href="https://developer.api.autodesk.com/viewingservice/v1/viewers/style.min.css">
+  <link rel="stylesheet" href="css/main.css">
+  <script src="https://developer.api.autodesk.com/viewingservice/v1/viewers/three.min.js?v=2.13"></script>
+  <script src="https://developer.api.autodesk.com/viewingservice/v1/viewers/viewer3D.min.js?v=2.13"></script>
+  <script src="js/ForgeViewer.js"></script>
+
+  <!-- XLS related libraries -->
+  <script src="js/libraries/Blob.js"></script> <!-- https://github.com/eligrey/Blob.js -->
+  <script src="js/libraries/FileSaver.min.js"></script> <!-- https://github.com/eligrey/FileSaver.js -->
+  <script src="js/libraries/xlsx.core.min.js"></script> <!-- https://github.com/SheetJS/js-xlsx -->
+  <script src="js/ForgeXLS.js"></script>
+
+  <!-- Basic script for this page -->
+  <script language="JavaScript">
+    // for this sample, the URN is hardcoded
+    var sampleURN;
+
+    // wait until the document is ready...
+    $(document).ready(function () {
+      jQuery.ajax({
+        url: '/forge/models',
+        success: function (models) {
+          if (models) {
+            $('#downloadExcel').click(downloadExcel);
+            sampleURN = models[0].urn;
+            showModel(sampleURN);
+          }
+        }
+      });
+    });
+
+    // this will prepare and download the XLS file
+    function downloadExcel() {
+      $('#downloadExcel').prop("disabled", true);
+      getForgeToken(function (access_token, expires_in) {
+        ForgeXLS.downloadXLSX(sampleURN, access_token, statusCallback /*Optional*/);
+      });
+    }
+
+    function statusCallback(completed, message) {
+      $.notify(message, 'info');
+      $('#downloadExcel').prop("disabled", !completed);
+    }
+
+    // get Forge token (use your data:read endpoint here)
+    // this sample is using client-side JavaScript only, so no
+    // back-end that authenticate with Forge nor files, therefore
+    // is using files from another sample. On your implementation,
+    // you should replace this with your own Token endpoint
+    function getForgeToken(callback) {
+      jQuery.ajax({
+        url: '/forge/oauth/token',
+        success: function (oauth) {
+          if (callback)
+            callback(oauth.access_token, oauth.expires_in);
+        }
+      });
+    }
+  </script>
+</head>
+<body>
+<div id="top">
+  This samples exports a model to Excel:
+  <button id="downloadExcel">Export to Excel</button>
+</div>
+<div id="forgeViewer"></div>
+</body>
+</html>
