@@ -9,7 +9,7 @@ JavaScript sample to extract Revit files from [Model Derivative API](https://dev
 
 This sample uses Model Derivative API endpoints to read a Revit project properties and create a XLSX Excel file with one sheet for each type/category with all objects on it. Non-Revit files are not supported (different structure). [Here is another version](https://github.com/Autodesk-Forge/model.derivative-csharp-context.menu) for desktop.
 
-![thumbnail](/extractSpreadsheet.png)
+![thumbnail](/thumbnail.png)
 
 ## Demonstration
 
