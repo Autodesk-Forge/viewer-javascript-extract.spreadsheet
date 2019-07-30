@@ -10,7 +10,7 @@
   "scripts": {
     "start": "NODE_ENV=production node start.js",
     "dev": "node start.js",
-    "nodemon": "nodemon start.js --ignore www/"
+    "nodemon": "nodemon start.js --ignore public/"
   },
   "author": "Forge Partner Development",
   "license": "MIT",

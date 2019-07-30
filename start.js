@@ -16,15 +16,18 @@
 // UNINTERRUPTED OR ERROR FREE.
 /////////////////////////////////////////////////////////////////////
 
-'use strict'; // http://www.w3schools.com/js/js_strict.asp
+const path = require('path');
+const express = require('express');
 
-var app = require('./server/server');
+if (process.env.FORGE_CLIENT_ID == null || process.env.FORGE_CLIENT_SECRET == null) {
+  console.log('*****************\nWARNING: Client ID & Client Secret not defined as environment variables.\n*****************');
+}
 
-// start server
-var server = app.listen(app.get('port'), function () {
-  if (process.env.FORGE_CLIENT_ID == null || process.env.FORGE_CLIENT_SECRET == null)
-    console.log('*****************\nWARNING: Client ID & Client Secret not defined as environment variables.\n*****************');
-
+let app = express();
+app.use('/', express.static(path.join(__dirname, 'public')));
+app.set('port', process.env.PORT || 3000);
+app.use('/', require('./routes/forge'));
+let server = app.listen(app.get('port'), function () {
   console.log('Starting at ' + (new Date()).toString());
   console.log('Server listening on port ' + server.address().port);
 });

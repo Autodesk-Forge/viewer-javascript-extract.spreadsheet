@@ -25,8 +25,7 @@ const fs = require('fs');
 const express = require('express');
 const { AuthenticationClient, DataManagementClient, ModelDerivativeClient } = require('forge-nodejs-utils');
 
-const config = require('./config');
-const ossBucketKey = process.env.FORGE_BUCKET;
+const config = require('../config');
 
 let router = express.Router();
 let auth = new AuthenticationClient(config.credentials.client_id, config.credentials.client_secret);
@@ -45,7 +44,7 @@ router.get('/forge/models', async function (req, res) {
   let results = [];
   const buckets = await data.listBuckets();
   for (const bucket of buckets) {
-    if (bucket.bucketKey === ossBucketKey) {
+    if (bucket.bucketKey === config.bucket) {
       const objects = await data.listObjects(bucket.bucketKey);
       for (const obj of objects) {
         results.push({
@@ -61,7 +60,7 @@ router.get('/forge/models', async function (req, res) {
 
 router.get('/forge/initialsetup', async function (req, res) {
   const buff = fs.readFileSync(path.join(__dirname, '..', 'samples', 'rac_advanced_sample_project.rvt'));
-  const obj = await data.uploadObject(ossBucketKey, 'racadvanced.rvt', 'application/octet-stream', buff);
+  const obj = await data.uploadObject(config.bucket, 'racadvanced.rvt', 'application/octet-stream', buff);
   const job = await deriv.submitJob(obj.objectId.toBase64(), [{ type: 'svf', views: ['2d', '3d'] }]);
   res.json(job);
 });
