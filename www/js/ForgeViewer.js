@@ -19,45 +19,30 @@
 // This file is based on the tutorial
 // https://developer.autodesk.com/en/docs/viewer/v2/tutorials/basic-viewer/
 
-var viewer;
+let viewer;
 
 function showModel(urn) {
-  var options = {
+  const options = {
     env: 'AutodeskProduction',
     getAccessToken: getForgeToken
   };
-  var documentId = 'urn:' + urn;
-  Autodesk.Viewing.Initializer(options, function onInitialized() {
-    Autodesk.Viewing.Document.load(documentId, onDocumentLoadSuccess, onDocumentLoadFailure);
+  Autodesk.Viewing.Initializer(options, function () {
+    viewer = new Autodesk.Viewing.Private.GuiViewer3D(document.getElementById('forgeViewer'), {});
+    viewer.start();
+    Autodesk.Viewing.Document.load('urn:' + urn, onDocumentLoadSuccess, onDocumentLoadFailure);
   });
 }
 
 function onDocumentLoadSuccess(doc) {
-
-  // A document contains references to 3D and 2D viewables.
-  var viewables = Autodesk.Viewing.Document.getSubItemsWithProperties(doc.getRootItem(), {
-    'type': 'geometry'
-  }, true);
-  if (viewables.length === 0) {
-    console.error('Document contains no viewables.');
-    return;
+  const node = doc.getRoot().getDefaultGeometry();
+  if (node) {
+    console.log('Loading viewable', node.data);
+    viewer.loadDocumentNode(doc, node);
+  } else {
+    console.warn('No viewable found');
   }
-
-  // Choose any of the avialble viewables
-  var initialViewable = viewables[0];
-  var svfUrl = doc.getViewablePath(initialViewable);
-  var modelOptions = {
-    sharedPropertyDbPath: doc.getPropertyDbPath()
-  };
-
-  var viewerDiv = document.getElementById('forgeViewer');
-  viewer = new Autodesk.Viewing.Private.GuiViewer3D(viewerDiv, {});
-  viewer.start(svfUrl, modelOptions, onLoadModelSuccess, onLoadModelError);
 }
 
-function onDocumentLoadFailure(viewerErrorCode) {}
-
-function onLoadModelSuccess(model) {}
-
-
-function onLoadModelError(viewerErrorCode) {}
+function onDocumentLoadFailure(err) {
+  console.error('Could not load document: ' + err);
+}
