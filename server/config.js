@@ -28,5 +28,5 @@ module.exports = {
   // Required scopes for your application on server-side
   scopeInternal: 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete',
   // Required scope of the token sent to the client
-  scopePublic: 'data:read'
+  scopePublic: 'data:read viewables:read'
 };

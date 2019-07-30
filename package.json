@@ -15,12 +15,7 @@
   "author": "Forge Partner Development",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "*",
-    "express": "*",
-    "forge-model-derivative": "*",
-    "forge-oauth2": "*",
-    "forge-oss": "*",
-    "request": "*",
-    "serve-favicon": "*"
+    "express": "^4.17.1",
+    "forge-nodejs-utils": "^4.0.0"
   }
 }

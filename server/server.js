@@ -18,19 +18,11 @@
 
 'use strict'; // http://www.w3schools.com/js/js_strict.asp
 
-var express = require('express');
-var app = express();
+const express = require('express');
 
-// favicon
-var favicon = require('serve-favicon');
-app.use(favicon(__dirname + '/../www/images/favicon.ico'));
-
-// prepare server routing
-app.use('/', express.static(__dirname + '/../www')); // redirect static calls
-app.set('port', process.env.PORT || 3000); // main port
-
-// prepare our API endpoint routing
-var forge = require('./forge');
-app.use('/', forge); // redirect oauth API calls
+let app = express();
+app.use('/', express.static(__dirname + '/../www'));
+app.set('port', process.env.PORT || 3000);
+app.use('/', require('./forge'));
 
 module.exports = app;
