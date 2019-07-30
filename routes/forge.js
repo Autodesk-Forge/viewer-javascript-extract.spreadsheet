@@ -17,7 +17,7 @@
 /////////////////////////////////////////////////////////////////////
 
 String.prototype.toBase64 = function () {
-  return new Buffer(this).toString('base64');
+  return Buffer.from(this).toString('base64');
 };
 
 const path = require('path');
