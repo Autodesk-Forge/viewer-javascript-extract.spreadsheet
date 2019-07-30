@@ -41,3 +41,6 @@ jspm_packages
 # webstorm files
 .DS_Store
 .idea
+
+# vscode files
+.vscode/
