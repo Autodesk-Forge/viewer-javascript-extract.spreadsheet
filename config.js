@@ -24,9 +24,9 @@ module.exports = {
     client_id: process.env.FORGE_CLIENT_ID || '<replace with your consumer key>',
     client_secret: process.env.FORGE_CLIENT_SECRET || '<replace with your consumer secret>',
   },
-
+  bucket: process.env.FORGE_BUCKET,
   // Required scopes for your application on server-side
   scopeInternal: 'data:read data:write data:create data:search bucket:create bucket:read bucket:update bucket:delete',
   // Required scope of the token sent to the client
-  scopePublic: 'data:read'
+  scopePublic: 'data:read viewables:read'
 };

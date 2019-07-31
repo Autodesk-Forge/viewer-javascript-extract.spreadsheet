@@ -16,6 +16,9 @@
     },
     "FORGE_CLIENT_SECRET": {
       "description": "Forge Client Secret"
+    },
+    "FORGE_BUCKET": {
+      "description": "Forge Data Bucket"
     }
   },
   "website": "https://developer.autodesk.com/",
