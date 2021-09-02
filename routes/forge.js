@@ -23,7 +23,7 @@ String.prototype.toBase64 = function () {
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
-const { AuthenticationClient, DataManagementClient, ModelDerivativeClient } = require('forge-nodejs-utils');
+const { AuthenticationClient, DataManagementClient, ModelDerivativeClient } = require('forge-server-utils');
 
 const config = require('../config');
 

@@ -16,6 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
-    "forge-nodejs-utils": "^4.0.0"
+    "forge-server-utils": "^8.3.2"
   }
 }
