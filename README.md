@@ -13,7 +13,7 @@ This sample uses Model Derivative API endpoints to read a Revit project properti
 
 ## Demonstration
 
-Run it live at [this page](https://viewerxls.herokuapp.com), or locally by following these steps:
+Run it live at [this page](https://viewerxls.autodesk.io), or locally by following these steps:
 
 - create a Forge application if you don't have one yet ([tutorial](https://forge.autodesk.com/en/docs/oauth/v2/tutorials/create-app/))
 - make sure you have at least one file prepared for viewing ([tutorial](https://forge.autodesk.com/en/docs/model-derivative/v2/tutorials/prep-file4viewer/))
